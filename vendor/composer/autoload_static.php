@@ -7,7 +7,9 @@ namespace Composer\Autoload;
 class ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f
 {
     public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -19,14 +21,30 @@ class ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f
         array (
             'Webmozart\\Assert\\' => 17,
         ),
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\Translation\\' => 30,
+        ),
         'Q' => 
         array (
             'Quiz\\Tests\\' => 11,
             'Quiz\\' => 5,
         ),
+        'P' => 
+        array (
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Container\\' => 14,
+        ),
+        'I' => 
+        array (
+            'Illuminate\\Support\\' => 19,
+            'Illuminate\\Contracts\\' => 21,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Common\\Inflector\\' => 26,
             'DeepCopy\\' => 9,
         ),
     );
@@ -42,6 +60,14 @@ class ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
         'Quiz\\Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
@@ -50,14 +76,38 @@ class ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Illuminate\\Support\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/support',
+        ),
+        'Illuminate\\Contracts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/contracts',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
+        ),
+        'Doctrine\\Common\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
+    );
+
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
     );
 
     public static $prefixesPsr0 = array (
@@ -617,6 +667,7 @@ class ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit9638f3f378f5b495aef3c96cf83a427f::$classMap;
 

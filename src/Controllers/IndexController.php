@@ -16,7 +16,7 @@ class IndexController extends BaseController
 
     public function indexAction()
     {
-        $user = $this->userRepository->getById(51);
+        $user = $this->userRepository->one();
 
         return $this->render('index', compact('user'));
     }

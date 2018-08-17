@@ -7,23 +7,21 @@ use Quiz\Repositories\UserRepository;
 
 class AjaxController extends BaseAjaxController
 {
-    public function indexAction()
-    {
-        $repo = new UserRepository();
-        $user = new User();
-        $user->name = 'Kārlis';
-        $repo->save($user);
+    /** @var UserRepository */
+    protected $userRepository;
 
-        return $user;
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
     }
 
     public function saveUserAction()
     {
-        $name = $this->post['name'];
-        $repo = new UserRepository();
-        $user = new User();
+        $name = $this->post->get('name');
+        /** @var User $user */
+        $user = $this->userRepository->create();
         $user->name = $name;
-        $repo->save($user);
+        $this->userRepository->save($user);
 
         return $user;
     }

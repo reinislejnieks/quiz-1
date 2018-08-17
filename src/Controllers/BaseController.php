@@ -2,15 +2,17 @@
 
 namespace Quiz\Controllers;
 
+use Illuminate\Support\Collection;
+
 abstract class BaseController
 {
     /** @var string */
     protected $template = 'default';
 
-    /** @var array */
+    /** @var Collection */
     protected $post;
 
-    /** @var array */
+    /** @var Collection */
     protected $get;
 
     /** @var string */
@@ -30,15 +32,15 @@ abstract class BaseController
 
     /**
      * @param array $params
-     * @return array
+     * @return Collection
      */
-    protected function prepareParams(array $params)
+    protected function prepareParams(array $params): Collection
     {
         foreach ($params as $key => $value) {
             $params[$key] = htmlspecialchars($value);
         }
 
-        return $params;
+        return collect($params);
     }
 
     /**

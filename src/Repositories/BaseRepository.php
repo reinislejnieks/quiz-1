@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: karlis
- * Date: 15/08/2018
- * Time: 22:30
- */
 
 namespace Quiz\Repositories;
-
 
 use Quiz\Database\ConnectionFactory;
 use Quiz\Interfaces\ConnectionInterface;
@@ -99,11 +92,12 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * @param array $conditions
+     * @param array $select
      * @return BaseModel
      */
-    public function one(array $conditions = [])
+    public function one(array $conditions = [], array $select = [])
     {
-        $data = self::getConnection()->select(static::getTableName(), $conditions)[0] ?? [];
+        $data = array_first(self::getConnection()->select(static::getTableName(), $conditions, $select));
 
         if (!$data) {
             return null;
@@ -160,5 +154,14 @@ abstract class BaseRepository implements RepositoryInterface
         $model->attributes = $attributes;
 
         return $model;
+    }
+
+    /**
+     * @param array $attributes
+     * @return BaseModel
+     */
+    public function create(array $attributes = [])
+    {
+        return static::init($attributes);
     }
 }
