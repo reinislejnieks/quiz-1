@@ -168,4 +168,12 @@ class MysqlConnection implements ConnectionInterface
 
         return $attributes;
     }
+
+    /**
+     * @return int
+     */
+    public function getLastInsertId(): int
+    {
+        return $this->connection->lastInsertId();
+    }
 }

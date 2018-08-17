@@ -25,7 +25,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function all(array $conditions = []): array
     {
-        $dataArray = static::getConnection()->select(static::getTableName(), $conditions);
+        $dataArray = self::getConnection()->select(static::getTableName(), $conditions);
 
         $instances = [];
 
@@ -68,13 +68,10 @@ abstract class BaseRepository implements RepositoryInterface
     public static function init(array $attributes)
     {
         $class = static::modelName();
+        /** @var BaseModel $instance */
         $instance = new $class;
-
-        foreach ($attributes as $key => $value) {
-            if (property_exists($class, $key)) {
-                $instance->$key = $value;
-            }
-        }
+        $instance->setAttributes($attributes);
+        static::prepareAttributes($instance);
 
         return $instance;
     }
@@ -106,7 +103,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function one(array $conditions = [])
     {
-        $data = static::getConnection()->select(static::getTableName(), $conditions)[0] ?? [];
+        $data = self::getConnection()->select(static::getTableName(), $conditions)[0] ?? [];
 
         if (!$data) {
             return null;
@@ -121,9 +118,12 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function save($model): bool
     {
-        $connection = static::getConnection();
+        $connection = self::getConnection();
+
         if ($model->isNew) {
-            return $connection->insert(static::getTableName(), static::getPrimaryKey(), $this->getAttributes($model));
+            $connection->insert(static::getTableName(), static::getPrimaryKey(), $this->getAttributes($model));
+            $model->id = $connection->getLastInsertId();
+            static::prepareAttributes($model);
         }
 
         return $connection->update(static::getTableName(), static::getPrimaryKey(), $this->getAttributes($model));
@@ -136,7 +136,7 @@ abstract class BaseRepository implements RepositoryInterface
     public function getAttributes($model): array
     {
         if (!$model->attributes) {
-            $model = $this->prepareAttributes($model);
+            $model = static::prepareAttributes($model);
         }
 
         return $model->attributes;
@@ -146,9 +146,9 @@ abstract class BaseRepository implements RepositoryInterface
      * @param $model
      * @return BaseModel
      */
-    protected function prepareAttributes($model)
+    protected static function prepareAttributes($model)
     {
-        $columns = static::getConnection()->fetchColumns(static::getTableName());
+        $columns = self::getConnection()->fetchColumns(static::getTableName());
         $attributes = [];
 
         foreach ($columns as $column) {

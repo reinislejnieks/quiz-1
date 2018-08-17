@@ -33,4 +33,9 @@ interface ConnectionInterface
      * @return array
      */
     public function fetchColumns(string $table): array;
+
+    /**
+     * @return int
+     */
+    public function getLastInsertId(): int;
 }
