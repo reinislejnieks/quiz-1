@@ -6,10 +6,17 @@ use Quiz\Repositories\UserRepository;
 
 class IndexController extends BaseController
 {
+    /** @var UserRepository */
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function indexAction()
     {
-        $repo = new UserRepository();
-        $user = $repo->getById(51);
+        $user = $this->userRepository->getById(51);
 
         return $this->render('index', compact('user'));
     }
